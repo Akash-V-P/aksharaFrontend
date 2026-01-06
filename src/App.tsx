@@ -6,8 +6,16 @@ import Profile from "@/pages/Profile";
 import Protectedroutes from "./routes/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
 import AuthLayout from "./layout/AuthLayout";
+import { useAuthStore } from "./store/auth.store";
+import { useEffect } from "react";
 
 function App() {
+  const checkAuth = useAuthStore((state) => state.checkAuth);
+
+  useEffect(() => {
+    checkAuth();
+  },[checkAuth]);
+  
   return (
     <BrowserRouter>
       <Routes>

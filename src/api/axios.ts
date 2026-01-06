@@ -1,0 +1,80 @@
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig } from "axios";
+import { triggerAuthLogout } from "./authEvents";
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+
+let isRefreshing = false;
+
+let failedQueue: {
+  resolve: (value?: unknown) => void;
+  reject: (error?: unknown) => void;
+}[] = [];
+
+
+const processQueue = (error: unknown, tokenRefreshed = false) => {
+  failedQueue.forEach((promise) => {
+    if (tokenRefreshed) {
+      promise.resolve();
+    } else {
+      promise.reject(error);
+    }
+  });
+
+  failedQueue = [];
+};
+
+// api.interceptors.response.use((response) => response, (error) => {...logic})
+api.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config as AxiosRequestConfig & {
+      _retry?: boolean;
+    };
+
+    // If unauthorized & not already retried
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry
+    ) {
+      // prevent infinite loop
+      originalRequest._retry = true;
+
+      if (isRefreshing) {
+        // wait for refresh to complete
+        return new Promise((resolve, reject) => {
+          failedQueue.push({
+            resolve: () => resolve(api(originalRequest)),
+            reject,
+          });
+        });
+      }
+
+      isRefreshing = true;
+
+      try {
+        await api.post("/users/refresh-token");
+
+        processQueue(null, true);
+        return api(originalRequest);
+      } catch (refreshError) {
+        processQueue(refreshError, false);
+        triggerAuthLogout();
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export default api;
