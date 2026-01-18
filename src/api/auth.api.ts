@@ -17,6 +17,7 @@ export interface LoginResponse {
 
 export const loginUser = async (payload: LoginPayload) => {
   const response = await api.post<LoginResponse>("/users/login", payload);
+  
   return response.data;
 }
 

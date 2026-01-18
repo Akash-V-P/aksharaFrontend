@@ -1,6 +1,8 @@
 import axios from "axios";
 import type { AxiosError, AxiosRequestConfig } from "axios";
 import { triggerAuthLogout } from "./authEvents";
+import { showErrorToast } from "@/lib/toast";
+import { normalizeApiError } from "./apiError";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -35,13 +37,16 @@ const processQueue = (error: unknown, tokenRefreshed = false) => {
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
+
+    const { message, status } = normalizeApiError(error);
+
     const originalRequest = error.config as AxiosRequestConfig & {
       _retry?: boolean;
     };
 
     // If unauthorized & not already retried
     if (
-      error.response?.status === 401 &&
+      status === 401 &&
       !originalRequest._retry
     ) {
       // prevent infinite loop
@@ -72,6 +77,8 @@ api.interceptors.response.use(
         isRefreshing = false;
       }
     }
+
+    showErrorToast(message)
 
     return Promise.reject(error);
   }

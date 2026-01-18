@@ -12,7 +12,7 @@ export interface User {
 interface AuthState { 
   user: User | null;
   isAuthenticated: boolean;
-  isLoading: boolean;
+  isAuthLoading: boolean;
 
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -23,7 +23,7 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
-  isLoading: true,
+  isAuthLoading: true,
 
   login: async (email, password) => {
     const data = await loginUser({ email, password });
@@ -52,13 +52,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({
         user,
         isAuthenticated: true,
-        isLoading: false,
+        isAuthLoading: false,
       })
     } catch {
       set({
         user: null,
         isAuthenticated: false,
-        isLoading: false,
+        isAuthLoading: false,
       });
     }
   },
