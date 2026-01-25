@@ -63,7 +63,7 @@ export default function Login() {
           )}
         </div>
 
-        <div>
+        <div className=" pb-4">
           <Label htmlFor="password">Password</Label>
 
           <div className="relative">

@@ -42,12 +42,14 @@ api.interceptors.response.use(
 
     const originalRequest = error.config as AxiosRequestConfig & {
       _retry?: boolean;
+      skipAuthRefresh?: boolean;
     };
 
     // If unauthorized & not already retried
     if (
       status === 401 &&
-      !originalRequest._retry
+      !originalRequest._retry &&
+      !originalRequest.skipAuthRefresh
     ) {
       // prevent infinite loop
       originalRequest._retry = true;
@@ -65,7 +67,9 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        await api.post("/users/refresh-token");
+        await api.post("/users/refresh-token", null, {
+          skipAuthRefresh: true
+        });
 
         processQueue(null, true);
         return api(originalRequest);

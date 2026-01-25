@@ -8,7 +8,7 @@ import NotFound from "@/pages/NotFound";
 import { useAuthStore } from "@/store/auth.store";
 import { useEffect } from "react";
 
-import PublicLayout from "@/layout/publicLayout";
+import PublicLayout from "@/layout/PublicLayout";
 import AppLayout from "@/layout/AppLayout";
 
 function App() {
@@ -41,6 +41,7 @@ function App() {
         <Route element={ <Protectedroutes /> }>
           <Route element={ <AppLayout />} >
             <Route path="/profile" element={ <Profile /> } />
+            <Route path="/profile/:username" element={ <Profile /> } />
           </Route>
         </Route>
 

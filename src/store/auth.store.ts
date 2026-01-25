@@ -4,9 +4,12 @@ import { create } from "zustand";
 
 
 export interface User {
-  id: string;
-  name: string;
+  _id: string;
+  username: string;
+  fullName: string;
   email: string;
+  avatar: string;
+  coverImage?: string;
 }
 
 interface AuthState { 
