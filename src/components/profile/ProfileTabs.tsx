@@ -1,6 +1,6 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { BookOpenText, TvMinimalPlay, EthernetPort } from "lucide-react";
+import { BookOpenText, TvMinimalPlay, MessageSquare } from "lucide-react";
 
 import {
   Tooltip,
@@ -65,7 +65,7 @@ export default function ProfileTabs({
           <Tooltip>
             <TooltipTrigger asChild>
               <span className="flex items-center">
-                <EthernetPort size={20} />
+                <MessageSquare size={20} />
               </span>
             </TooltipTrigger>
 

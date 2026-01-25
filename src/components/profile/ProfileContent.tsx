@@ -2,6 +2,17 @@ import { useChannelVideos } from "@/hooks/useChannelVideos";
 import { useChannelTweets } from "@/hooks/useChannelTweets";
 import { useChannelBooks } from "@/hooks/useChannelBooks";
 
+import {
+  VideoGridSkeleton,
+  TweetListSkeleton,
+  BookGridSkeleton,
+} from "@/components/common/ProfileSkeletons";
+
+
+import { BookOpenText, TvMinimalPlay, MessageSquare  } from "lucide-react";
+import EmptyState from "@/components/common/EmptyState";
+
+
 interface ProfileContentProps {
   channelId: string;
   activeTab: string;
@@ -11,30 +22,45 @@ export default function ProfileContent({
   channelId,
   activeTab,
 }: ProfileContentProps) {
-  if (activeTab === "videos") {
-    const { data, isLoading } = useChannelVideos(channelId);
 
-    if (isLoading) return <p className="p-6">Loading videos…</p>;
-    if (!data?.length) return <p className="p-6">No videos yet</p>;
+  const videosQuery = useChannelVideos(channelId);
+  const tweetsQuery = useChannelTweets(channelId);
+  const booksQuery = useChannelBooks(channelId);
+
+  const renderVideos = () => {
+    if(videosQuery.isLoading) {
+      return <VideoGridSkeleton />
+    }
+
+    if( !videosQuery.data?.length ) {
+      return (
+        <EmptyState icon={<TvMinimalPlay size={32}/>} title="No videos yet" description="videos shared by the user will appear here"  />
+      )
+    }
 
     return (
       <div className="grid grid-cols-3 gap-4 p-6">
-        {data.map((video: any) => (
+        {videosQuery.data?.map((video: any) => (
           <div key={video._id} className="aspect-square bg-muted rounded-md" />
         ))}
       </div>
     );
   }
 
-  if (activeTab === "tweets") {
-    const { data, isLoading } = useChannelTweets(channelId);
+  const renderTweets = () => {
+    if(videosQuery.isLoading) {
+      return <TweetListSkeleton />;
+    }
 
-    if (isLoading) return <p className="p-6">Loading tweets…</p>;
-    if (!data?.length) return <p className="p-6">No tweets yet</p>;
+    if( !videosQuery.data?.length ) {
+      return (
+        <EmptyState icon={<MessageSquare size={32}/>} title="No Tweets yet" description="Tweet shared by the user will appear here"  />
+      )
+    }
 
     return (
       <div className="flex flex-col gap-4 p-6">
-        {data.map((tweet: any) => (
+        {tweetsQuery.data?.map((tweet: any) => (
           <div
             key={tweet._id}
             className="rounded-md border p-4"
@@ -46,15 +72,20 @@ export default function ProfileContent({
     );
   }
 
-  if (activeTab === "books") {
-    const { data, isLoading } = useChannelBooks(channelId);
+  const renderBooks = () => {
+    if(videosQuery.isLoading) {
+      return <BookGridSkeleton />;
+    }
 
-    if (isLoading) return <p className="p-6">Loading books…</p>;
-    if (!data?.length) return <p className="p-6">No books yet</p>;
+    if( !videosQuery.data?.length ) {
+      return (
+        <EmptyState icon={<BookOpenText size={32}/>} title="No Books yet" description="Books shared by the user will appear here"  />
+      )
+    }
 
     return (
       <div className="grid grid-cols-4 gap-4 p-6">
-        {data.map((book: any) => (
+        {booksQuery.data?.map((book: any) => (
           <div
             key={book._id}
             className="aspect-[3/4] rounded-md bg-muted"
@@ -63,6 +94,10 @@ export default function ProfileContent({
       </div>
     );
   }
+
+  if ( activeTab === "videos" ) return renderVideos();
+  if ( activeTab === "tweets" ) return renderTweets();
+  if ( activeTab === "books" ) return renderBooks();
 
   return null;
 }
