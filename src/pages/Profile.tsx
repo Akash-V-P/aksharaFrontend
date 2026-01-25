@@ -7,6 +7,7 @@ import { useChannelProfile } from "@/hooks/useChannelProfile";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import ProfileContent from "@/components/profile/ProfileContent";
+import ProfileStats from "@/components/profile/ProfileStats";
 
 export default function Profile() {
   const { username } = useParams();
@@ -34,6 +35,8 @@ export default function Profile() {
       <div className="mx-auto max-w-5xl px-6">
 
       <ProfileHeader profile={profile} />
+
+      <ProfileStats channelId={profile._id} />
 
       <div className="mt-8">
         <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />

@@ -11,6 +11,8 @@ import {
 
 import { BookOpenText, TvMinimalPlay, MessageSquare  } from "lucide-react";
 import EmptyState from "@/components/common/EmptyState";
+import VideoCard from "../video/VideoCard";
+import BookCard from "../book/BookCard";
 
 
 interface ProfileContentProps {
@@ -41,7 +43,7 @@ export default function ProfileContent({
     return (
       <div className="grid grid-cols-3 gap-4 p-6">
         {videosQuery.data?.map((video: any) => (
-          <div key={video._id} className="aspect-square bg-muted rounded-md" />
+          <VideoCard key={video._id} video={video} />
         ))}
       </div>
     );
@@ -86,10 +88,7 @@ export default function ProfileContent({
     return (
       <div className="grid grid-cols-4 gap-4 p-6">
         {booksQuery.data?.map((book: any) => (
-          <div
-            key={book._id}
-            className="aspect-[3/4] rounded-md bg-muted"
-          />
+          <BookCard key={book._id} book={book} />
         ))}
       </div>
     );
