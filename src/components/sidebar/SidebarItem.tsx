@@ -14,7 +14,7 @@ export default function SidebarItem({ to, icon, label }: siderbarItemsProps) {
       to={to}
       className={({ isActive }) =>
         cn(
-          "flex items-center gap-4 rounded-lg px-4 py-3 text-lg transition",
+          "flex items-center gap-4 rounded-lg px-4 py-1 text-lg transition",
           isActive
             ? "bg-accent font-medium text-accent-foreground"
             : "hover:bg-accent/50",

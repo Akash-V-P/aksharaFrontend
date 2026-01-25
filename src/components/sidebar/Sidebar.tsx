@@ -4,6 +4,7 @@ import SidebarItem from "./SidebarItem";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Home } from "lucide-react";
+import CreateDropdown from "./CreateDropdown";
 
 
 export default function Sidebar() {
@@ -17,11 +18,15 @@ export default function Sidebar() {
             {/* navigation */}
             <nav className=" flex flex-col gap-2 pt-8">
                 <SidebarItem to="/home" icon={<Home size={20}/>} label={"Home"} />
+
             </nav>
 
 
             {/* profile */}
-            <SidebarItem 
+            <div className="fixed bottom-5 flex-col ">
+                <CreateDropdown />
+
+                <SidebarItem 
                 to={`/profile/${user?.username}`}
                 icon={
                     <Avatar className="h-6 w-6">
@@ -31,6 +36,7 @@ export default function Sidebar() {
                 }
                 label="Profile"
             />
+            </div>
 
         </aside>
     )

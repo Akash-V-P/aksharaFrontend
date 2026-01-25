@@ -14,7 +14,8 @@ export default function CreateDropdown() {
     const navigate = useNavigate();
 
     return (
-        <DropdownMenu>
+        <div className="py-2">
+            <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="ghost"
@@ -44,7 +45,8 @@ export default function CreateDropdown() {
                     Upload Book
                 </DropdownMenuItem>
             </DropdownMenuContent>
-        </DropdownMenu>    
+        </DropdownMenu>
+        </div>    
     );
 
 }
