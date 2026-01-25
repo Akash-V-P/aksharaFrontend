@@ -50,11 +50,11 @@ export default function ProfileContent({
   }
 
   const renderTweets = () => {
-    if(videosQuery.isLoading) {
+    if(tweetsQuery.isLoading) {
       return <TweetListSkeleton />;
     }
 
-    if( !videosQuery.data?.length ) {
+    if( !tweetsQuery.data?.length ) {
       return (
         <EmptyState icon={<MessageSquare size={32}/>} title="No Tweets yet" description="Tweet shared by the user will appear here"  />
       )
@@ -75,11 +75,11 @@ export default function ProfileContent({
   }
 
   const renderBooks = () => {
-    if(videosQuery.isLoading) {
+    if(booksQuery.isLoading) {
       return <BookGridSkeleton />;
     }
 
-    if( !videosQuery.data?.length ) {
+    if( !booksQuery.data?.length ) {
       return (
         <EmptyState icon={<BookOpenText size={32}/>} title="No Books yet" description="Books shared by the user will appear here"  />
       )

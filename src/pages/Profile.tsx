@@ -36,7 +36,7 @@ export default function Profile() {
 
       <ProfileHeader profile={profile} />
 
-      <ProfileStats channelId={profile._id} />
+      {/* <ProfileStats channelId={profile._id} /> */}
 
       <div className="mt-8">
         <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
