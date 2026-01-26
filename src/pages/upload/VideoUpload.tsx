@@ -1,21 +1,28 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+
 
 import { VideoUploadSchema } from "@/schema/video.schema";
 import type { VideoUploadSchemaType } from "@/schema/video.schema";
 import { useUploadVideo } from "@/hooks/useUploadVideo";
+import { useAuthStore } from "@/store/auth.store";
 
 import { UploadCloud, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 export default function VideoUpload() {
   const uploadVideoMutation = useUploadVideo();
 
   const videoInputRef = useRef<HTMLInputElement | null>(null);
   const thumbnailInputRef = useRef<HTMLInputElement | null>(null);
+
+  const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
 
   const {
     register,
@@ -32,7 +39,20 @@ export default function VideoUpload() {
   }, [register]);
 
   const onSubmit = (data: VideoUploadSchemaType) => {
-    uploadVideoMutation.mutate(data);
+    uploadVideoMutation.mutate(data, {
+      onSuccess: () => {
+        toast.success("Video uploaded successfully");
+
+        setTimeout(() => {
+          navigate(`/profile/${user?.username}`);
+        }, 800);
+      },
+      onError: (error: any) => {
+        toast.error(
+          error?.response?.data?.message || "Failed to upload video"
+        );
+      }
+    });
   };
 
   return (
