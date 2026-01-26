@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import PublicLayout from "@/layout/PublicLayout";
 import AppLayout from "@/layout/AppLayout";
 import VideoUpload from "@/pages/upload/VideoUpload";
+import BookUpload from "./pages/upload/BookUpload";
 
 function App() {
   const checkAuth = useAuthStore((state) => state.checkAuth);
@@ -44,6 +45,7 @@ function App() {
             <Route path="/profile" element={ <Profile /> } />
             <Route path="/profile/:username" element={ <Profile /> } />
             <Route path="/upload/video" element={ <VideoUpload /> } />
+            <Route path="/upload/book" element={ <BookUpload /> } />
           </Route>
         </Route>
 
