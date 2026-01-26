@@ -1,5 +1,7 @@
 import api from "./axios";
 
+import type { UploadProgressCallback } from "@/types/upload";
+
 export interface UploadVideoPlayload {
     title: string;
     description: string;
@@ -7,7 +9,7 @@ export interface UploadVideoPlayload {
     videoFile: File;
 }
 
-export const uploadVideo = async ( playload: UploadVideoPlayload ) => {
+export const uploadVideo = async ( playload: UploadVideoPlayload, onProgress?: UploadProgressCallback ) => {
     const formData = new FormData();
 
     formData.append("title", playload.title);
@@ -21,7 +23,12 @@ export const uploadVideo = async ( playload: UploadVideoPlayload ) => {
         {
             headers: {
                 "Content-Type": "multipart/form-data",
-            }
+            },
+            onUploadProgress: (event) => {
+                if(!event.total) return;
+                const percent = Math.round((event.loaded*100) / event.total);
+                onProgress?.(percent);
+            },
         }
     );
 

@@ -27,10 +27,9 @@ export default function VideoUpload() {
   });
 
   useEffect(() => {
-  register("videoFile");
-  register("thumbnail");
-}, [register]);
-
+    register("videoFile");
+    register("thumbnail");
+  }, [register]);
 
   const onSubmit = (data: VideoUploadSchemaType) => {
     uploadVideoMutation.mutate(data);
@@ -132,9 +131,7 @@ export default function VideoUpload() {
           />
 
           {errors.title && (
-            <p className="text-sm text-red-500">
-              {errors.title.message}
-            </p>
+            <p className="text-sm text-red-500">{errors.title.message}</p>
           )}
         </div>
 
@@ -142,23 +139,37 @@ export default function VideoUpload() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Description</label>
           <Textarea
-          {...register("description")}
+            {...register("description")}
             placeholder="Describe your video"
             rows={5}
             className="border border-black"
           />
 
           {errors.description && (
-            <p className="text-sm text-red-500">
-              {errors.description.message}
-            </p>
+            <p className="text-sm text-red-500">{errors.description.message}</p>
           )}
         </div>
 
         {/* submit */}
         <div className="pt-4">
-          <Button type="submit" disabled={uploadVideoMutation.isPending} size="lg">{uploadVideoMutation.isPending? "Uploading...." : "Upload video"}</Button>
+          <Button
+            type="submit"
+            disabled={uploadVideoMutation.isPending}
+            size="lg"
+          >
+            {uploadVideoMutation.isPending
+              ? `Uploading ${uploadVideoMutation.progress}%`
+              : "Upload video"}
+          </Button>
         </div>
+        {uploadVideoMutation.isPending && (
+          <div className="mt-4 h-2 w-full rounded bg-muted">
+            <div
+              className="h-2 rounded bg-primary transition-all"
+              style={{ width: `${uploadVideoMutation.progress}%` }}
+            />
+          </div>
+        )}
       </form>
     </div>
   );
