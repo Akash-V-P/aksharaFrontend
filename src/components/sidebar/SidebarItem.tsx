@@ -14,10 +14,10 @@ export default function SidebarItem({ to, icon, label }: siderbarItemsProps) {
       to={to}
       className={({ isActive }) =>
         cn(
-          "flex items-center gap-4 rounded-lg px-4 py-1 text-lg transition",
+          "flex items-center gap-4 rounded-lg px-4 py-1 text-lg transition hover:bg-accent",
           isActive
             ? "bg-accent font-medium text-accent-foreground"
-            : "hover:bg-accent/50",
+            : "hover:bg-accent/80",
         )
       }
     >

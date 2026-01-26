@@ -14,12 +14,12 @@ export default function CreateDropdown() {
     const navigate = useNavigate();
 
     return (
-        <div className="py-2">
+        <div className="my-2 pr-4 hover:bg-accent rounded-md ">
             <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="ghost"
-                    className="w-full justify-start gap-2 border"
+                    className="w-full justify-start gap-2 "
                 >
                     <Plus size={20} />
                     <span className="text-lg px-4">Create</span>

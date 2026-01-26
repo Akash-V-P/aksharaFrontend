@@ -17,7 +17,7 @@ export default function Sidebar() {
 
             {/* navigation */}
             <nav className=" flex flex-col gap-2 pt-8">
-                <SidebarItem to="/home" icon={<Home size={20}/>} label={"Home"} />
+                <SidebarItem to="/" icon={<Home size={20}/>} label={"Home"} />
 
             </nav>
 
