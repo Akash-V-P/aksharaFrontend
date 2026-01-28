@@ -21,9 +21,9 @@ let failedQueue: {
 }[] = [];
 
 
-const processQueue = (error: unknown, tokenRefreshed = false) => {
+const processQueue = ( isTokenRefreshed = false, error: unknown ) => {
   failedQueue.forEach((promise) => {
-    if (tokenRefreshed) {
+    if (isTokenRefreshed) {
       promise.resolve();
     } else {
       promise.reject(error);
@@ -35,7 +35,9 @@ const processQueue = (error: unknown, tokenRefreshed = false) => {
 
 // api.interceptors.response.use((response) => response, (error) => {...logic})
 api.interceptors.response.use(
+
   (response) => response,
+
   async (error: AxiosError) => {
 
     const { message, status } = normalizeApiError(error);
@@ -45,17 +47,17 @@ api.interceptors.response.use(
       skipAuthRefresh?: boolean;
     };
 
-    // If unauthorized & not already retried
+    //If unauthorized & not already retried
     if (
       status === 401 &&
       !originalRequest._retry &&
       !originalRequest.skipAuthRefresh
     ) {
-      // prevent infinite loop
+      //prevent infinite loop
       originalRequest._retry = true;
 
       if (isRefreshing) {
-        // wait for refresh to complete
+        //wait for refresh to complete
         return new Promise((resolve, reject) => {
           failedQueue.push({
             resolve: () => resolve(api(originalRequest)),
@@ -71,10 +73,10 @@ api.interceptors.response.use(
           skipAuthRefresh: true
         });
 
-        processQueue(null, true);
+        processQueue( true, null );
         return api(originalRequest);
       } catch (refreshError) {
-        processQueue(refreshError, false);
+        processQueue( false, refreshError );
         triggerAuthLogout();
         return Promise.reject(refreshError);
       } finally {

@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# Akshara Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Akshara is an ongoing project built for **Sahitya**, the literature club of **MVJ College of Engineering**.
 
-Currently, two official plugins are available:
+Akshara Frontend is a web application built using **React, TypeScript, and Vite**.  
+It provides the user interface for the Akshara platform, focusing on performance, scalability, and a clean, modern user experience while consuming REST APIs from the backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework:** React (Vite)
+- **Language:** TypeScript
+- **State Management:**
+  - Zustand (client / UI state)
+  - React Query (server / API state)
+- **API Communication:** Axios
+- **Styling & UI:** Tailwind CSS, shadcn/ui
+- **Routing:** React Router
+- **Version Control:** Git
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+- Type-safe React application using TypeScript
+- Authentication flows (login / signup)
+- API-driven data fetching with caching and revalidation
+- Clear separation of client state and server state
+- Reusable, composable UI components
+- Responsive and accessible UI
+- Graceful handling of loading, error, and empty states
+- Optimized rendering and efficient API usage
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+## Phase 1 – Core Frontend Implementation ( ongoing )
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Set up React + TypeScript application using Vite
+- Built application layout and routing structure
+- Implemented authentication flows and protected routes
+- Integrated REST APIs using Axios
+- Managed server-side state using React Query
+- Managed client-side UI state using Zustand
+- Built reusable UI components using shadcn/ui
+- Styled the application using Tailwind CSS
+- Handled loading, error, and edge cases for better UX
+- Ensured responsiveness across devices
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+### Implemented Functionalities
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+- User registration and login UI
+- Profile UI for viewing user profile
+- Dashboard UI for viewing channel statistics
+- Upload and display of **Books**, **Videos**, and **Posts**
+
+
+

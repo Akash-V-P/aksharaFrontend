@@ -1,6 +1,5 @@
-// import { useChannelProfile } from "@/hooks/useChannelProfile";
 import { useAuthStore } from "@/store/auth.store";
-// import { useToggleSubscription } from "@/hooks/useToggleSubscription";
+import type { ChannelProfile } from "@/api/user.api";
 
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -9,10 +8,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import { PenSquare } from "lucide-react";
-import type { ChannelProfile } from "@/api/user.api";
 import FollowButton from "./FollowButton";
+
 
 interface ProfileHeaderProps {
   profile: ChannelProfile;

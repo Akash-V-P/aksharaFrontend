@@ -7,6 +7,7 @@ export interface UploadVideoPlayload {
     description: string;
     thumbnail: File;
     videoFile: File;
+    
 }
 
 export const uploadVideo = async ( playload: UploadVideoPlayload, onProgress?: UploadProgressCallback ) => {
