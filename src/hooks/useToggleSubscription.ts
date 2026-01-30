@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {toggleSubscription} from "@/api/subscription.api"
 
-export const useToggleSubscription = (username: string) => {
+export const useToggleSubscription = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn: toggleSubscription,
-        onSuccess: () => {
-            // refetch profile after follow/unfollow
+        
+        onSuccess: ( _, profileId) => {
             queryClient.invalidateQueries({
-                queryKey: ["channel-profile"],
+                queryKey: ["channel-profile", profileId],
             })
         }
     })

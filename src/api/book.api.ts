@@ -4,7 +4,7 @@ import type { BookUploadSchemaType } from "@/schema/book.schema";
 
 export const uploadBook = async (
   payload: BookUploadSchemaType,
-  onProgress?: UploadProgressCallback
+  setProgress?: UploadProgressCallback
 ) => {
   const formData = new FormData();
 
@@ -29,7 +29,7 @@ export const uploadBook = async (
     onUploadProgress: (event) => {
       if (!event.total) return;
       const percent = Math.round((event.loaded * 100) / event.total);
-      onProgress?.(percent);
+      setProgress?.(percent);
     },
   });
 

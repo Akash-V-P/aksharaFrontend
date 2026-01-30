@@ -7,7 +7,7 @@ interface FollowButtonProps {
 }
 
 export default function FollowButton({ profile }: FollowButtonProps) {
-  const toggleSubs = useToggleSubscription(profile.username);
+  const toggleSubs = useToggleSubscription();
 
   const handleClick = () => {
     toggleSubs.mutate(profile._id);

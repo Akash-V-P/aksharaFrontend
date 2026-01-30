@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 
 export const useChannelBooks = ( channelId: string ) => {
     return useQuery({
-        queryKey: ["channel-videos", channelId],
+        queryKey: ["channel-books", channelId],
         queryFn: () => getChannelBooks(channelId),
         enabled: !!channelId,
     })

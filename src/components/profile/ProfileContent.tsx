@@ -8,7 +8,6 @@ import {
   BookGridSkeleton,
 } from "@/components/common/ProfileSkeletons";
 
-
 import { BookOpenText, TvMinimalPlay, MessageSquare  } from "lucide-react";
 import EmptyState from "@/components/common/EmptyState";
 import VideoCard from "../video/VideoCard";
