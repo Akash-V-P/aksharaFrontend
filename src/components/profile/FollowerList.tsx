@@ -1,15 +1,9 @@
 import { useFollowers } from "@/hooks/useFollowers"
 import FollowListItem from "./FollowListItem";
+import type { publicUser } from "@/types/user";
 
 interface FollowerListProps {
     channelId: string,
-}
-
-interface Follower {
-    _id: string,
-    username: string,
-    fullName: string,
-    avatar: string,
 }
 
 
@@ -26,14 +20,14 @@ export default function FollowerList( { channelId }: FollowerListProps ) {
 
     if ( !data || !data.length ) {
         return(
-        <p className="p-4 text-sm text-muted-foreground">No followers yet</p>
+        <p className="p-4 text-sm text-muted-foreground text-center">No followers yet</p>
     )
     }
 
     return (
         <div className=" flex flex-col gap-2" >
             {
-                data.map( (follower: Follower) => (<FollowListItem key={follower._id} user={follower}/>) )
+                data.map( (follower: publicUser) => (<FollowListItem key={follower._id} user={follower}/>) )
             }
         </div>
     )

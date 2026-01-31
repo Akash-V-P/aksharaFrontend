@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 interface FollowListItemProps {
   user: {
+    _id:string;
     username: string;
     fullName: string;
     avatar: string;
