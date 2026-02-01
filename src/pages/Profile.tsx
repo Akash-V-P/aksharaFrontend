@@ -8,13 +8,28 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import ProfileContent from "@/components/profile/ProfileContent";
 import ProfileStats from "@/components/profile/ProfileStats";
+import FollowModal from "@/components/follow/FollowModal";
 
 export default function Profile() {
   const { username } = useParams();
   const authUser = useAuthStore((state) => state.user);
   const [ activeTab, setActiveTab ] = useState("videos");
 
+  const [ isFollowModalOpen, setIsFollowModalOpen ] = useState(false);
+  const [ activeFollowTab, setActiveFollowtab] = useState<"followers" | "following">("followers");
+
   const profileUsername = username ?? authUser?.username;
+
+  const openFollowers = () => {
+    setActiveFollowtab("followers");
+    setIsFollowModalOpen(true);
+  }
+
+  const openFollowing = () => {
+    setActiveFollowtab("following");
+    setIsFollowModalOpen(true);
+  }
+
 
   const { 
     data: profile,
@@ -34,7 +49,7 @@ export default function Profile() {
     <div className="w-full">
       <div className="mx-auto max-w-5xl px-6">
 
-      <ProfileHeader profile={profile} />
+      <ProfileHeader profile={profile} onFollowersClick={openFollowers} onFollowingClick={openFollowing} />
 
       {/* <ProfileStats channelId={profile._id} /> */}
 
@@ -45,6 +60,18 @@ export default function Profile() {
       <div className="mt-6">
         <ProfileContent channelId={profile._id} activeTab={activeTab} />
       </div>
+
+      <FollowModal
+        open={isFollowModalOpen}
+        onOpenChange={setIsFollowModalOpen}
+        activeTab={activeFollowTab}
+        setActiveTab={(value) => {
+          if ( value === "followers" || value === "following"){
+            setActiveFollowtab(value);
+          }
+        }}
+        channelId={profile._id}
+      />
     </div>
     </div>
   )

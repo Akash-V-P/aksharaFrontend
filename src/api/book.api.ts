@@ -22,10 +22,7 @@ export const uploadBook = async (
   formData.append("coverImage", payload.coverImage);
   formData.append("bookFile", payload.bookFile);
 
-  const response = await api.post("/books", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+  const response = await api.post("/book/", formData, {
     onUploadProgress: (event) => {
       if (!event.total) return;
       const percent = Math.round((event.loaded * 100) / event.total);
