@@ -2,21 +2,23 @@ import { useAuthStore } from "@/store/auth.store";
 import type { ChannelProfile } from "@/api/user.api";
 
 import { Button } from "../ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { PenSquare } from "lucide-react";
-import FollowButton from "./FollowButton";
+import FollowButton from "@/components/profile/FollowButton";
 
 
 interface ProfileHeaderProps {
   profile: ChannelProfile;
+  onFollowersClick: () => void;
+  onFollowingClick: () => void;
 }
 
-export default function ProfileHeader({ profile }: ProfileHeaderProps) {
+export default function ProfileHeader({ profile, onFollowersClick, onFollowingClick }: ProfileHeaderProps) {
   const authUser = useAuthStore((state) => state.user);
   const isOwnProfile = authUser?.username === profile.username;
 
@@ -68,23 +70,29 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
 
           <div className="flex gap-8">
             {/* stats */}
-            <div className="flex gap-8 text-xl">
-              <div>
-                <span className="font-semibold">
+            <button 
+              onClick={onFollowersClick}
+              className="text-sm hover:underline"
+            >
+              <span className="font-semibold">
                   {profile.subscribersCount}
                 </span>{" "}
                 followers
-              </div>
-            </div>
-            <div className="flex gap-8 text-xl">
-              <div>
-                <span className="font-semibold">
+            </button>
+
+            <button 
+              onClick={onFollowingClick}
+              className="text-sm hover:underline"
+            >
+              <span className="font-semibold">
                   {profile.channelsSubscribedToCount}
                 </span>{" "}
                 following
-              </div>
-            </div>
+            </button>
+
+            
           </div>
+
         </div>
       </div>
     </div>

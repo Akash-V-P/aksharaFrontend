@@ -2,6 +2,8 @@ import api from "./axios";
 
 export const getChannelBooks = async (channelId: string) => {
     const res = await api.get(`/dashboard/books/${channelId}`);
+    console.log(res);
+    console.log(res.data.data);
     return res.data.data;
 }
 

@@ -27,6 +27,7 @@ export default function ProfileContent({
   const videosQuery = useChannelVideos(channelId);
   const tweetsQuery = useChannelTweets(channelId);
   const booksQuery = useChannelBooks(channelId);
+  console.log("booksQuery", booksQuery.error);
 
   const renderVideos = () => {
     if(videosQuery.isLoading) {
